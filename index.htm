@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <!--
+      Katie Le, Gabriel Rojas 2-26-24
+   -->
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="style.css" />
+   <title>Hands-on Project 5-2</title>
+   <script src="modernizr.custom.05819.js"></script>
+</head>
+
+<body>
+   <header>
+      <h1>
+         Hands-on Project 5-2
+      </h1>
+   </header>
+
+   <!--Adding a forum within the article tag with different inputs to update the data using the ID of contactinfo, addrinput, cityinput, stateinput, zipinput and submitsection. The article tag makes the form its own content on the page.-->
+   <article>
+      <h2>Change of address form</h2>
+      <form>
+        <fieldset id="contactinfo">
+          <label for="addrinput">
+            Street Address
+          </label>
+          <input type="text" id="addrinput" name="Address" />
+          <label for="cityinput">
+            City
+          </label>
+          <input type="text" id="cityinput" name="City" />
+          <label for="stateinput">
+            State/Province
+          </label>
+          <input type="text" id="stateinput" name="State" />
+          <label for="zipinput">
+            Zip/Postal Code
+          </label>
+          <input type="number" id="zipinput" name="Zip" />
+        </fieldset>
+        <fieldset id="submitsection">
+          <input type="button" id="submit" value="Submit" />
+        </fieldset>
+     </form>
+
+   </article>
+
+ <!--Using the script tag to be able to add JS to the HTML file-->  
+   <script>
+    /* Adding a function processInput. These two variables propertyWidth and propertyHeight and initialize them with values 300 and 100 respectively. These values represent the width and height of the window that will be opened.*/
+    function processInput() {
+    var propertyWidth = 300;
+    var propertyHeight = 100;
+    /*These lines calculate the left and top positions for the new window. It calculates the position to center the new window within the user's screen*/
+    var winLeft = ((screen.width - propertyWidth) / 2);
+    var winTop = ((screen.height - propertyHeight) / 2);
+    /* These lines construct a string winOptions which will be used to specify the features of the new window to be opened. It sets the width and height of the window and adds the left and top positions calculated earlier.*/
+    var winOptions = "width=300,height=100";
+    winOptions += ",left=" + winLeft;
+     winOptions += ",top=" + winTop;
+     /*This line opens a new browser window with the URL "confirm.htm". The second parameter "confirm" specifies the name of the new window. The third parameter winOptions specifies the features of the new window, including its width, height, left position, and top position. 
+     So overall, when the processInput() function is called, it opens a new window with the specified dimensions and positions, centered within the user's screen, displaying the content from "confirm.htm".*/
+    window.open("confirm.htm", "confirm", winOptions);
+    }
+
+   /*This line defines a function named createEventListener(). This function will be responsible for attaching an event listener to a submit button*/
+     function createEventListener() {
+      /*This line gets a reference to an HTML element with the ID "submit" using document.getElementById(). It assigns this reference to the variable submitButton.*/
+var submitButton = document.getElementById("submit");
+/*This if statement checks if the addEventListener method is supported by the browser. This method is used to attach an event listener to an HTML element.*/
+ if (submitButton.addEventListener) {
+  /*If addEventListener is supported, this line adds an event listener to the submitButton element. It listens for a "click" event, and when the button is clicked, it calls the processInput function. The false parameter indicates that event capturing is not used.*/
+ submitButton.addEventListener("click", processInput,
+ false);
+ /*If addEventListener is not supported, this else if block checks if the attachEvent method is supported by the browser.*/
+ } else if (submitButton.attachEvent) {
+  /*If attachEvent is supported, this line attaches an event listener to the submitButton element. It listens for a "click" event, and when the button is clicked, it calls the processInput function.*/
+ submitButton.attachEvent("onclick", processInput);
+ }
+ }
+    
+ /*This code is responsible for attaching an event listener to the "load" event of the window. This condition checks if the addEventListener method is available in the window object.*/
+    if(window.addEventListener){
+ /*If addEventListener is available, this line attaches an event listener to the "load" event of the window. When the entire document and its dependencies (like images and stylesheets) have finished loading, this event fires. The function createEventListener is called when this event occurs.*/
+      window.addEventListener("load", createEventListener, false);  
+/*If addEventListener is not available (likely indicating an older version of Internet Explorer), this condition checks if the attachEvent method is available in the window object.*/
+    }else if(window.attachEvent){
+/*If attachEvent is available, this line attaches an event listener to the "onload" event of the window.The createEventListener function is called when this event occurs.*/
+      window.attachEvent("onload", createEventListener);  
+    }
+   </script>
+</body>
+</html>
